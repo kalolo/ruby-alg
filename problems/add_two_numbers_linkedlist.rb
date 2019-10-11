@@ -28,7 +28,7 @@ def add_two_numbers(l1, l2)
 
     result = join_linked_list(l1) + join_linked_list(l2)
     list = number_to_reverse_list result.to_s.reverse.split('')
-    list.first
+    list.head
 end
 
 def join_linked_list(list)
@@ -42,45 +42,43 @@ def join_linked_list(list)
 end
 
 def number_to_reverse_list(number)
-    list = LinkedList.new
+    #list = LinkedList.new
+    list = nil
     number.each do |c|
-        list.add_value c
+        if list == nil then
+            list = LinkedList.new c.to_i
+        else
+            list.add_value c.to_i
+        end
     end
     list
 end
 
 class LinkedList
-    attr_accessor :head, :first
+    attr_accessor :head
 
-    def initialize
-        @head = nil
+    def initialize(value)
+        @head = ListNode.new value
     end
 
-    def add_with_array(arr)
+    def self.add_with_array(arr)
+        list = nil
         arr.each do |x|
-            add_value x
+            if !list then
+                list = LinkedList.new x
+            else
+                list.add_value x
+            end
         end
-        @first
+        list
     end
 
     def add_value(val)
-        node = ListNode.new val.to_i
-        if !@head 
-            @head = node
-            @first = node
-            return @head
+        current_node = @head
+        while current_node.next != nil
+            current_node = current_node.next
         end
-        
-        @head.next = node
-        @head = node
-    end
-
-    def current
-        return @head if @head
-    end
-
-    def first
-        return @first if @first
+        current_node.next = ListNode.new val
     end
 end
 
@@ -111,14 +109,14 @@ describe "You are given two non-empty linked lists representing two non-negative
         Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
         Output: 7 -> 0 -> 8" do
 
-        list = LinkedList.new
-        list.add_value 7
-        list.add_value 0
-        list.add_value 8
+        list1 = LinkedList.add_with_array [2,4,3]
+        list2 = LinkedList.add_with_array [5,6,4]
 
-        list1 = LinkedList.new.add_with_array [2,4,3]
-        list2 = LinkedList.new.add_with_array [5,6,4]
-
-        expect( join_linked_list(add_two_numbers(list1, list2)) ).to eql( join_linked_list(list.first) )
+        expect( 
+            join_linked_list(
+                add_two_numbers(list1.head, list2.head)) 
+        ).to eql( 
+            join_linked_list(LinkedList.add_with_array([7,0,8]).head)
+        )
     end
 end

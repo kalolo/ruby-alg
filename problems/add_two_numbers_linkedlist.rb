@@ -90,20 +90,6 @@ class ListNode
     end
 end
 
-#l1 = ListNode.new(2)
-#l2 = ListNode.new(4)
-#l3 = ListNode.new(3)
-#l1.next = l2
-#l2.next = l3
-
-#l4 = ListNode.new(5)
-#l5 = ListNode.new(6)
-#l6 = ListNode.new(4)
-
-#l4.next = l5
-#l5.next = l6
-#p add_two_numbers l1, l4
-
 describe "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. " do 
     it "Add the two numbers and return it as a linked list.
         Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
@@ -114,7 +100,8 @@ describe "You are given two non-empty linked lists representing two non-negative
 
         expect( 
             join_linked_list(
-                add_two_numbers(list1.head, list2.head)) 
+                add_two_numbers(list1.head, list2.head)
+            ) 
         ).to eql( 
             join_linked_list(LinkedList.add_with_array([7,0,8]).head)
         )

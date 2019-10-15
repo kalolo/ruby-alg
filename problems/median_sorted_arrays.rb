@@ -15,7 +15,7 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
 
 =end
-
+require 'rspec/autorun'
 # @param {Integer[]} nums1
 # @param {Integer[]} nums2
 # @return {Float}
@@ -65,10 +65,20 @@ def merge_arrays(arr1, arr2)
     arr3
 end
 
-#p find_median_sorted_arrays [1,3,4,6,7], [2,5]
+describe "Median of Two Sorted Arrays" do 
+    it "find_median_sorted_arrays [1,3,4,6,7], [2,5] => 3" do
+      expect( find_median_sorted_arrays [1,3,4,6,7], [2,5] ).to eql(4)
+    end
 
-#p find_median_sorted_arrays [1,3,4,6,7], [2]
+    it "find_median_sorted_arrays [1,3,4,6,7], [2] => 1" do
+      expect( find_median_sorted_arrays [1,3,4,6,7], [2] ).to eql(3.5)
+    end
 
-#p find_median_sorted_arrays [1,2], [3]
+    it "find_median_sorted_arrays [1,3], [2] => 3" do
+      expect( find_median_sorted_arrays [1,2], [3] ).to eql(2)
+    end
 
-p find_median_sorted_arrays [1,2], [3,4]
+    it "find_median_sorted_arrays [1,2], [3,4]" do
+      expect( find_median_sorted_arrays [1,2], [3,4] ).to eql(2.5)
+    end
+end
